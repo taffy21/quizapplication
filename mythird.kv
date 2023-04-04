@@ -1,0 +1,183 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+MyQuizScreen:
+    QuestionOne:
+    QuestionTwo:
+    QuestionThree:
+    QuestionFour:
+    QuestionFive:
+    QuestionSix:
+    QuestionSeven:
+    QuestionEight:
+    QuestionNine:
+    QuestionTen:
+    FinalScore:
+
+
+<MyQuizScreen>:
+    id: manager
+    transition: FadeTransition()
+
+
+<MyQuiz>:
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "vertical"
+            Label:
+                id: question
+                text: root.quiz[root.quiz_number]["Question"]
+                text_size: self.width, None
+                font_size: 48
+                padding: 50, 50
+            GridLayout:
+                cols:2
+                Label:
+                    text: "A"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["A"]
+                    text_size: self.width, None
+                    halign: "left"
+                Label:
+                    text: "B"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["B"]
+                    text_size: self.width, None
+                    halign: "left"
+                Label:
+                    text: "C"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["C"]
+                    text_size: self.width, None
+                    halign: "left"
+                Label:
+                    text: "D"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["D"]
+                    text_size: self.width, None
+                    halign: "left"
+            GridLayout:
+                cols: 4
+                padding: 0.9, 0.9, 0.9, 0.9
+                size_hint_y: 0.15
+                Button:
+                    id: a_button
+                    text: "A"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score += 1 if root.quiz[root.quiz_number]["A"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        print(app.root.get_screen("final").score)
+                        app.root.current = root.next_question
+                Button:
+                    id: b_button
+                    text: "B"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["B"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        app.root.current = root.next_question
+                Button:
+                    id: c_button
+                    text: "C"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["C"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        print(app.root.get_screen("final").score)
+                        app.root.current = root.next_question
+                Button:
+                    id: d_button
+                    text: "D"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["D"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        app.root.current = root.next_question
+
+<FinalScore>:
+    id: final
+    name: "final"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "You Scored"
+            font_size: 50
+        Label:
+            id: score_label
+            text: str(root.score) +"/10"
+            font_size: 80
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 0.40
+            Button:
+                id: restart_button
+                text: "Restart"
+                on_press:
+                    app.root.current = "One"
+                    app.root.get_screen("final").score = 0
+            Button:
+                id: quit
+                text: "Quit"
+                on_press:
+                    app.stop()
+
+
+
+<QuestionOne@MyQuiz>:
+    quiz_number: 0
+    name: "One"
+    next_question: "Two"
+
+<QuestionTwo@MyQuiz>:
+    quiz_number: 1
+    name: "Two"
+    next_question: "Three"
+
+<QuestionThree@MyQuiz>:
+    quiz_number: 2
+    name: "Three"
+    next_question: "Four"
+
+<QuestionFour@MyQuiz>:
+    quiz_number: 3
+    name: "Four"
+    next_question: "Five"
+
+<QuestionFive@MyQuiz>:
+    quiz_number: 4
+    name: "Five"
+    next_question: "Six"
+
+<QuestionSix@MyQuiz>:
+    quiz_number: 5
+    name: "Six"
+    next_question: "Seven"
+
+<QuestionSeven@MyQuiz>:
+    quiz_number: 6
+    name: "Seven"
+    next_question: "Eight"
+
+<QuestionEight@MyQuiz>:
+    quiz_number: 7
+    name: "Eight"
+    next_question: "Nine"
+
+<QuestionNine@MyQuiz>:
+    quiz_number: 8
+    name: "Nine"
+    next_question: "Ten"
+
+<QuestionTen@MyQuiz>:
+    quiz_number: 9
+    name: "Ten"
+    next_question: "final"
